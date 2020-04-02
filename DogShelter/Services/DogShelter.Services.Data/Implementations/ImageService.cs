@@ -21,7 +21,6 @@
             {
                 Url = url,
             };
-
             await this.repository.AddAsync(img);
             await this.repository.SaveChangesAsync();
         }

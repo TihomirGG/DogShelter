@@ -1,6 +1,7 @@
 ﻿namespace DogShelter.Web.Controllers
 {
     using System.Diagnostics;
+
     using DogShelter.Data.Models;
     using DogShelter.Web.ViewModels;
     using Microsoft.AspNetCore.Authorization;
@@ -20,8 +21,9 @@
         {
             if (this.signInManager.IsSignedIn(this.User))
             {
-                return this.Redirect("/All");
+                return this.Redirect("/Posts/All");
             }
+
             return this.View();
         }
 
