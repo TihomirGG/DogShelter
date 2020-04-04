@@ -4,6 +4,6 @@
 
     public interface IImageService
     {
-        Task AddAsync(string url);
+        Task<int> AddAsync(string url);
     }
 }

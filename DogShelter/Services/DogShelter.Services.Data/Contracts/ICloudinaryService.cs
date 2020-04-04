@@ -8,7 +8,7 @@
 
     public interface ICloudinaryService
     {
-        Task UploadAsync(ICollection<IFormFile> images);
+        Task<ICollection<Image>> UploadAsync(ICollection<IFormFile> images, int postId);
 
         Task UploadAsync(string url);
     }

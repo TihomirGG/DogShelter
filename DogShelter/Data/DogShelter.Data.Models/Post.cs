@@ -19,7 +19,7 @@
 
         public virtual ApplicationUser User { get; set; }
 
-        public virtual ICollection<PostImage> PostImages { get; set; } = new HashSet<PostImage>();
+        public virtual ICollection<PostImages> PostImages { get; set; } = new HashSet<PostImages>();
 
         public Area Area { get; set; }
     }

@@ -30,9 +30,9 @@
 
         public DbSet<Post> Posts { get; set; }
 
-        public DbSet<PostImage> PostsImages { get; set; }
-
         public DbSet<Comment> Comments { get; set; }
+
+        public DbSet<PostImages> PostImages { get; set; }
 
         public DbSet<Reply> Replies { get; set; }
 

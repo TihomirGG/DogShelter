@@ -15,7 +15,7 @@
             this.repository = repository;
         }
 
-        public async Task AddAsync(string url)
+        public async Task<int> AddAsync(string url)
         {
             var img = new Image()
             {
@@ -23,6 +23,7 @@
             };
             await this.repository.AddAsync(img);
             await this.repository.SaveChangesAsync();
+            return img.Id;
         }
     }
 }

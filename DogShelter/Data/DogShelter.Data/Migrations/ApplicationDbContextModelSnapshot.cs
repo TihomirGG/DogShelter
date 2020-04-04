@@ -208,10 +208,16 @@ namespace DogShelter.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(400)")
+                        .HasMaxLength(400);
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -224,7 +230,7 @@ namespace DogShelter.Data.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("DogShelter.Data.Models.PostImage", b =>
+            modelBuilder.Entity("DogShelter.Data.Models.PostImages", b =>
                 {
                     b.Property<int>("ImageId")
                         .HasColumnType("int");
@@ -245,7 +251,7 @@ namespace DogShelter.Data.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("PostsImages");
+                    b.ToTable("PostImages");
                 });
 
             modelBuilder.Entity("DogShelter.Data.Models.Reply", b =>
@@ -474,7 +480,7 @@ namespace DogShelter.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DogShelter.Data.Models.PostImage", b =>
+            modelBuilder.Entity("DogShelter.Data.Models.PostImages", b =>
                 {
                     b.HasOne("DogShelter.Data.Models.Image", "Image")
                         .WithMany("PostImages")

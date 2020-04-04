@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DogShelter.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200331113502_Initial")]
+    [Migration("20200404162226_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -203,16 +203,26 @@ namespace DogShelter.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("Area")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(400)")
+                        .HasMaxLength(400);
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(15)")
+                        .HasMaxLength(15);
+
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -222,7 +232,7 @@ namespace DogShelter.Data.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("DogShelter.Data.Models.PostImage", b =>
+            modelBuilder.Entity("DogShelter.Data.Models.PostImages", b =>
                 {
                     b.Property<int>("ImageId")
                         .HasColumnType("int");
@@ -243,7 +253,7 @@ namespace DogShelter.Data.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("PostsImages");
+                    b.ToTable("PostImages");
                 });
 
             modelBuilder.Entity("DogShelter.Data.Models.Reply", b =>
@@ -467,10 +477,12 @@ namespace DogShelter.Data.Migrations
                 {
                     b.HasOne("DogShelter.Data.Models.ApplicationUser", "User")
                         .WithMany("Posts")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("DogShelter.Data.Models.PostImage", b =>
+            modelBuilder.Entity("DogShelter.Data.Models.PostImages", b =>
                 {
                     b.HasOne("DogShelter.Data.Models.Image", "Image")
                         .WithMany("PostImages")

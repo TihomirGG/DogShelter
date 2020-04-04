@@ -4,9 +4,9 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    public class PostsImagesConfiguration : IEntityTypeConfiguration<PostImage>
+    public class PostsImagesConfiguration : IEntityTypeConfiguration<PostImages>
     {
-        public void Configure(EntityTypeBuilder<PostImage> builder)
+        public void Configure(EntityTypeBuilder<PostImages> builder)
         {
             builder.HasKey(k => new { k.ImageId, k.PostId });
 

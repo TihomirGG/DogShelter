@@ -201,8 +201,10 @@ namespace DogShelter.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    Title = table.Column<string>(maxLength: 15, nullable: false),
+                    Description = table.Column<string>(maxLength: 400, nullable: true),
+                    UserId = table.Column<string>(nullable: false),
+                    Area = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -245,7 +247,7 @@ namespace DogShelter.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PostsImages",
+                name: "PostImages",
                 columns: table => new
                 {
                     PostId = table.Column<int>(nullable: false),
@@ -256,15 +258,15 @@ namespace DogShelter.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PostsImages", x => new { x.ImageId, x.PostId });
+                    table.PrimaryKey("PK_PostImages", x => new { x.ImageId, x.PostId });
                     table.ForeignKey(
-                        name: "FK_PostsImages_Images_ImageId",
+                        name: "FK_PostImages_Images_ImageId",
                         column: x => x.ImageId,
                         principalTable: "Images",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_PostsImages_Posts_PostId",
+                        name: "FK_PostImages_Posts_PostId",
                         column: x => x.PostId,
                         principalTable: "Posts",
                         principalColumn: "Id",
@@ -389,14 +391,14 @@ namespace DogShelter.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PostImages_PostId",
+                table: "PostImages",
+                column: "PostId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Posts_UserId",
                 table: "Posts",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PostsImages_PostId",
-                table: "PostsImages",
-                column: "PostId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Replies_CommentId",
@@ -442,7 +444,7 @@ namespace DogShelter.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "PostsImages");
+                name: "PostImages");
 
             migrationBuilder.DropTable(
                 name: "Replies");

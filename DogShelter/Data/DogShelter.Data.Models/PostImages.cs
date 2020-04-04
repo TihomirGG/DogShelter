@@ -1,8 +1,10 @@
 ﻿namespace DogShelter.Data.Models
 {
+    using System.Collections.Generic;
+
     using DogShelter.Data.Common.Models;
 
-    public class PostImage : BaseModel<int>
+    public class PostImages : BaseModel<int>
     {
         public int PostId { get; set; }
 

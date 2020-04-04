@@ -7,6 +7,7 @@
     using CloudinaryDotNet;
     using CloudinaryDotNet.Actions;
     using DogShelter.Common;
+    using DogShelter.Data.Common.Repositories;
     using DogShelter.Data.Models;
     using DogShelter.Services.Data.Contracts;
     using Microsoft.AspNetCore.Http;
@@ -15,15 +16,21 @@
     {
         private readonly Cloudinary cloudinary;
         private readonly IImageService imageService;
+        private readonly IRepository<PostImages> db;
 
-        public CloudinaryService(Cloudinary cloudinary, IImageService imageService)
+        public CloudinaryService(
+            Cloudinary cloudinary,
+            IImageService imageService,
+            IRepository<PostImages> db)
         {
             this.cloudinary = cloudinary;
             this.imageService = imageService;
+            this.db = db;
         }
 
-        public async Task UploadAsync(ICollection<IFormFile> images)
+        public async Task<ICollection<Image>> UploadAsync(ICollection<IFormFile> images, int postId)
         {
+            var allImages = new List<Image>();
             foreach (var image in images)
             {
                 byte[] imageInBytes;
@@ -41,9 +48,17 @@
                 var result = await this.cloudinary.UploadAsync(param);
                 var url = result.SecureUri.ToString();
                 var urlForDb = url.Replace(GlobalConstants.DefaultCloudinaryLink, string.Empty);
-
-                await this.imageService.AddAsync(urlForDb);
+                var imgId = await this.imageService.AddAsync(urlForDb);
+                var postImage = new PostImages()
+                {
+                    ImageId = imgId,
+                    PostId = postId,
+                };
+                await this.db.AddAsync(postImage);
+                await this.db.SaveChangesAsync();
             }
+
+            return allImages;
         }
 
         public async Task UploadAsync(string url)
