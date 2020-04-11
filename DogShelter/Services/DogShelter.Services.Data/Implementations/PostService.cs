@@ -9,8 +9,9 @@
     using DogShelter.Data.Common.Repositories;
     using DogShelter.Data.Models;
     using DogShelter.Services.Data.Contracts;
-    using DogShelter.Services.Data.ServiceModels.Post;
+    using DogShelter.Services.Mapping;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.EntityFrameworkCore;
 
     public class PostService : IPostService
     {
@@ -35,16 +36,9 @@
             return post.Id;
         }
 
-        public IEnumerable<PostServiceModel> GetAll()
+        public async Task<IEnumerable<T>> GetAll<T>()
         {
-            var posts = this.db.All().OrderBy(x => x.CreatedOn)
-              .Select(x => new PostServiceModel
-              {
-                  Username = x.User.UserName,
-                  CreatedOn = x.CreatedOn.ToString("MM/dd/yyyy HH:mm"),
-                  Description = x.Description,
-              }).ToList();
-            return posts;
+            return await this.db.All().OrderBy(x => x.CreatedOn).To<T>().ToListAsync();
         }
     }
 }

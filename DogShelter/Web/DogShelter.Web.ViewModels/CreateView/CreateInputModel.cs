@@ -17,6 +17,7 @@
         [Required]
         public string Area { get; set; }
 
+        [Required]
         public ICollection<IFormFile> Images { get; set; }
     }
 }

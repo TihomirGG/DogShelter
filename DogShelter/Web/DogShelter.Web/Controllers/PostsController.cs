@@ -1,10 +1,12 @@
 ﻿namespace DogShelter.Web.Controllers
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using DogShelter.Data.Models;
     using DogShelter.Services.Data.Contracts;
     using DogShelter.Web.ViewModels.CreateView;
+    using DogShelter.Web.ViewModels.Posts;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -31,7 +33,8 @@
         [Authorize]
         public async Task<IActionResult> All()
         {
-            return this.View("Posts");
+            var posts = await this.postService.GetAll<PostsViewModel>();
+            return this.View("Posts", posts);
         }
 
         [Authorize]
