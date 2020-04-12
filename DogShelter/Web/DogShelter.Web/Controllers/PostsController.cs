@@ -64,5 +64,11 @@
             await this.cloudinaryService.UploadAsync(model.Images, postId);
             return this.Redirect("/");
         }
+
+        [Authorize]
+        public IActionResult Detail()
+        {
+            return this.View();
+        }
     }
 }

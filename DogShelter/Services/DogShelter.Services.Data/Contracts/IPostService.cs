@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+
     public interface IPostService
     {
         Task<IEnumerable<T>> GetAll<T>();

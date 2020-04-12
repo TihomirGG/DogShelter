@@ -1,25 +1,59 @@
 ﻿@using DogShelter.Web.ViewModels.Posts
 @using DogShelter.Common
+@using DogShelter.Data.Models
 @model List<PostsViewModel>
 <link rel="stylesheet" type="text/css" href="~/css/search-bar.css">
 <link rel="stylesheet" type="text/css" href="~/css/all-post.css">
 <div class="all-container">
-    <input class="search form-control" type="text" placeholder="Search" aria-label="Search">
-    @foreach (var input in Model)
-    {
-        <div class="card mb-3 ml-lg-5" style="max-width: 540px;">
-            <div class="row no-gutters">
-                <div class="col-md-4">
-                    <img src="@input.Link" class="card-img" alt="...">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">@input.Title</h5>
-                        <p class="card-text">@input.ShortDescription</p>
-                        <p class="card-text"><small class="text-muted">@input.CreatedOn</small></p>
+    <div class="data-holder">
+        <div class="post-filter-1">
+            <input class="search form-control" type="text" placeholder="Search" aria-label="Search">
+            <select selected="Sliven" asp-items="@Html.GetEnumSelectList(typeof(Area))" class="form-control"></select>
+        </div>
+        <div class="post-filter-2">
+            <select class="form-control">
+                <option selected>Post</option>
+                <option>User</option>
+            </select>
+            <button class="search-button btn btn-primary">Search</button>
+        </div>
+        @foreach (var input in Model)
+        {
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row no-gutters">
+                    <div class="col-md-4 post-image" style="background-image: url(@input.Link)">
+                        @*<img src="@input.Link" class="card-img" alt="...">*@
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">@input.Title</h5>
+                            <p class="card-text">@input.ShortDescription</p>
+                            <p class="card-text"><small class="text-muted">@input.CreatedOn</small></p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    }
+        }
+    <div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    </div>
 </div>
