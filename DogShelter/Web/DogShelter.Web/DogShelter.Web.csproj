@@ -24,6 +24,8 @@
 
   <ItemGroup>
     <PackageReference Include="CloudinaryDotNet" Version="1.10.0" />
+    <PackageReference Include="cloudscribe.Pagination.Models" Version="1.0.5" />
+    <PackageReference Include="cloudscribe.Web.Pagination" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -65,7 +67,7 @@
     <Content Update="wwwroot\css\all-post.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\css\search-bar.css">
+    <Content Update="wwwroot\css\post.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\css\site.css">

@@ -1,8 +1,9 @@
 ﻿namespace DogShelter.Web.Controllers
 {
-    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
+    using cloudscribe.Pagination.Models;
     using DogShelter.Data.Models;
     using DogShelter.Services.Data.Contracts;
     using DogShelter.Web.ViewModels.CreateView;
@@ -31,10 +32,19 @@
         }
 
         [Authorize]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(int pageNumber = 1, int pageSize = 5)
         {
-            var posts = await this.postService.GetAll<PostsViewModel>();
-            return this.View("Posts", posts);
+            var skippedRecords = (pageSize * pageNumber) - pageSize;
+            var temp = await this.postService.GetAll<PostsViewModel>();
+            var posts = temp.ToList().AsQueryable().Skip(skippedRecords).Take(pageSize).ToList();
+            var viewModel = new PagedResult<PostsViewModel>()
+            {
+                Data = posts,
+                TotalItems = posts.Count(),
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+            };
+            return this.View("Posts", viewModel);
         }
 
         [Authorize]
@@ -66,7 +76,7 @@
         }
 
         [Authorize]
-        public IActionResult Detail()
+        public IActionResult Detail(int id)
         {
             return this.View();
         }

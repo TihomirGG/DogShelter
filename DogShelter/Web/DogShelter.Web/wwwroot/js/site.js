@@ -18,15 +18,13 @@
 
 const createBtn = document.querySelector('.create');
 
-console.log($)
-
 createBtn.addEventListener('click', () => {
     const files = document.querySelector('#files').files;
 
     if (!files.length) {
         console.log('if')
         $.notify(
-            'You have to upload at least 1 image.',
+            'You have to upload atleast 1 image.',
             { position: 'top center' }
         );
     }

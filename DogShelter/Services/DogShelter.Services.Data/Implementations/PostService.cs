@@ -38,7 +38,7 @@
 
         public async Task<IEnumerable<T>> GetAll<T>()
         {
-            return await this.db.All().OrderBy(x => x.CreatedOn).To<T>().ToListAsync();
+            return await this.db.All().OrderByDescending(x => x.CreatedOn).To<T>().ToListAsync();
         }
     }
 }

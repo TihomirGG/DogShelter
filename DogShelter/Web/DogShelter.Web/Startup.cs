@@ -50,6 +50,7 @@
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddCloudscribePagination();
 
             services.AddSingleton(this.configuration);
 
