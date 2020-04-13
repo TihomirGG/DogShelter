@@ -36,9 +36,19 @@
             return post.Id;
         }
 
-        public async Task<IEnumerable<T>> GetAll<T>()
+        public async Task<IEnumerable<T>> GetAll<T>(int? take = null, int skip = 0)
         {
-            return await this.db.All().OrderByDescending(x => x.CreatedOn).To<T>().ToListAsync();
+            var query = this.db.All().OrderByDescending(x => x.CreatedOn).Skip(skip);
+            if (take.HasValue)
+            {
+                query.Take(take.Value);
+            }
+            return await query.To<T>().ToListAsync();
+        }
+
+        public int PostsCount()
+        {
+            return this.db.All().Count();
         }
     }
 }

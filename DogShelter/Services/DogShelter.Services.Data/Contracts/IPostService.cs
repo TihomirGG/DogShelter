@@ -5,8 +5,10 @@
 
     public interface IPostService
     {
-        Task<IEnumerable<T>> GetAll<T>();
+        Task<IEnumerable<T>> GetAll<T>(int? take = null, int skip = 0);
 
         Task<int> Create(string title, string description, string area, string userId);
+
+        int PostsCount();
     }
 }

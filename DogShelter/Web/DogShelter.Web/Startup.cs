@@ -47,10 +47,9 @@
                         options.CheckConsentNeeded = context => true;
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
-
+            services.AddCloudscribePagination();
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddCloudscribePagination();
 
             services.AddSingleton(this.configuration);
 

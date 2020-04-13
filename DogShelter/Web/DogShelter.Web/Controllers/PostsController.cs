@@ -1,5 +1,6 @@
 ﻿namespace DogShelter.Web.Controllers
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -11,9 +12,12 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
 
     public class PostsController : BaseController
     {
+        private const int pageSize = 5;
+
         private readonly UserManager<ApplicationUser> userManager;
         private readonly ICloudinaryService cloudinaryService;
         private readonly IImageService imageService;
@@ -32,17 +36,16 @@
         }
 
         [Authorize]
-        public async Task<IActionResult> All(int pageNumber = 1, int pageSize = 5)
+        public async Task<IActionResult> All(int page = 1)
         {
-            var skippedRecords = (pageSize * pageNumber) - pageSize;
-            var temp = await this.postService.GetAll<PostsViewModel>();
-            var posts = temp.ToList().AsQueryable().Skip(skippedRecords).Take(pageSize).ToList();
-            var viewModel = new PagedResult<PostsViewModel>()
+
+            var count = (int)Math.Ceiling((double)this.postService.PostsCount() / pageSize);
+            var posts = await this.postService.GetAll<PostsViewModel>(pageSize, (page - 1) * pageSize);
+            var viewModel = new PostWithPageCountViewModel()
             {
-                Data = posts,
-                TotalItems = posts.Count(),
-                PageNumber = pageNumber,
-                PageSize = pageSize,
+                Posts = posts,
+                PagesCount = count,
+                CurrentPage = page,
             };
             return this.View("Posts", viewModel);
         }
