@@ -43,10 +43,10 @@
         </div>
         <div class="post-filter-2">
             <select class="form-control">
-                <option selected>Post</option>
-                <option>User</option>
+                <option value="1" selected>Post</option>
+                <option value="2">User</option>
             </select>
-            <button class="search-button btn btn-primary">Search</button>
+            <button class="search-button btn btn-primary" asp-controller="Posts" asp-action="Find">Search</button>
         </div>
         @foreach (var input in Model.Posts)
         {

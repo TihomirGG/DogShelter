@@ -29,7 +29,7 @@ html {
 
 .app-container {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 57px);
 }
 
 .about-container {
@@ -43,7 +43,7 @@ html {
 }
 
 .about-text-container {
-    width: 25%;
+    width: 30%;
     margin: 100px 0 0 150px;
     background: #00000085;
     padding: 15px 20px;
@@ -55,7 +55,6 @@ html {
         margin: 50px 0 0 30px;
         width: 45%;
         max-height: 80vh;
-        overflow: scroll;
     }
 }
 
@@ -112,6 +111,7 @@ html {
     background: #00000085;
     padding: 15px 20px;
     border-radius: 15px;
+    height: fit-content;
 }
 
 .register-container {
@@ -126,7 +126,7 @@ html {
 }
 
 .register-form {
-    margin: 100px 90px 0px 0px;
+    margin: 30px 90px 0px 0px;
     width: 60vh;
     background: #00000085;
     padding: 15px 20px;
