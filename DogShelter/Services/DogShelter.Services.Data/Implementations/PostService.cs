@@ -42,6 +42,13 @@
 
         public async Task<IEnumerable<T>> FilteredPosts<T>(string title, string area)
         {
+            if (area == "All")
+            {
+                return await this.db.AllAsNoTracking()
+                     .Where(x => x.Title.ToLower().Contains(title.ToLower()))
+                     .OrderByDescending(x => x.CreatedOn).To<T>().ToListAsync();
+            }
+
             var enumArea = (int)Enum.Parse(typeof(Area), area);
             return await this.db.AllAsNoTracking()
                      .Where(x => x.Title.ToLower().Contains(title.ToLower()) && (int)x.Area == enumArea)

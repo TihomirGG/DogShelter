@@ -1,0 +1,35 @@
+﻿
+#post-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#data {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+.card {
+    background: #00000085;
+    padding: 15px 20px;
+    border-radius: 15px;
+    width: 100%;
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: 0.3s ease-in-out;
+}
+
+    .card:hover {
+        box-shadow: 0 8px 6px -6px #0479d9;
+    }
+
+.post-image {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}

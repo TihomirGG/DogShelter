@@ -124,11 +124,9 @@
                 var posts = await this.postService.FilteredPosts<PostsViewModel>(input.Search, input.Area);
                 return this.View("PostResults", posts);
             }
-            else if (input.UserOrPost == "User")
-            {
-                return this.View();
-            }
 
+            var users = await this.postService.FilteredUsers<UserResultViewModel>(input.Search);
+            return this.View("UserResults", users);
         }
     }
 }

@@ -9,7 +9,7 @@
     <div class="data-holder">
         <form asp-controller="Posts" asp-action="Find" method="get">
             <div class="post-filter-1">
-                <input class="search form-control" name="Search" type="text" placeholder="Search" aria-label="Search">
+                <input class="search form-control" name="Search" type="text" placeholder="Search" aria-label="Search" required>
                 <select class="form-control" asp-for="Area" asp-items="@Model.Areas">
                 </select>
             </div>

@@ -1,5 +1,5 @@
 ﻿@using DogShelter.Web.ViewModels.Posts
-@model IEnumerable<UserResultViewModel>
+@model IEnumerable<PostsViewModel>
 <link rel="stylesheet" type="text/css" href="~/css/all-post.css">
 @if (Model.Count() != 0)
 {
@@ -10,14 +10,14 @@
                 <div class="card mb-3" style="max-width: 540px;">
 
                     <div class="row no-gutters">
-                        <div class="col-md-4 post-image" style="background-image: url()">
+                        <div class="col-md-4 post-image" style="background-image: url(@input.Link)">
                             @*<img src="@input.Link" class="card-img" alt="...">*@
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5><a class="card-title text-dark" asp-area="" asp-controller="Users" asp-action="Detail" asp-route-id="@input.Id">@input.Username</a></h5>
+                                <h5><a class="card-title text-dark" asp-area="" asp-controller="Posts" asp-action="Detail" asp-route-id="@input.Id">@input.Title</a></h5>
                                 @*<h5 href="/Posts/Detail?id=@input.Id" class="card-title">@input.Title</h5>*@
-                                <p class="card-text">Posts: (@input.PostsCount)</p>
+                                <p class="card-text">@input.ShortDescription</p>
                                 <p class="card-text"><small class="text-muted">@input.CreatedOn</small></p>
                             </div>
                         </div>
@@ -30,9 +30,10 @@
 else
 {
     <div>
-        <h3> No users found with that username!<h3>
-</div>
+        <h3> No posts found!<h3>
+    </div>
     <form method="get">
-        <button type="submit" class="create btn btn-primary" asp-controller="Posts" asp-action="All">Try Again!</button>
-    </form>
+            <button type="submit" class="create btn btn-primary" asp-controller="Posts" asp-action="All">Try Again!</button>
+   </form>
 }
+
