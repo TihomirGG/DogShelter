@@ -16,10 +16,14 @@
     public class PostService : IPostService
     {
         private readonly IRepository<Post> db;
+        private readonly IRepository<ApplicationUser> userDb;
 
-        public PostService(IRepository<Post> db)
+        public PostService(
+            IRepository<Post> db,
+            IRepository<ApplicationUser> userDb)
         {
             this.db = db;
+            this.userDb = userDb;
         }
 
         public async Task<int> Create(string title, string description, string area, string userId)
@@ -36,13 +40,31 @@
             return post.Id;
         }
 
+        public async Task<IEnumerable<T>> FilteredPosts<T>(string title, string area)
+        {
+            var enumArea = (int)Enum.Parse(typeof(Area), area);
+            return await this.db.AllAsNoTracking()
+                     .Where(x => x.Title.ToLower().Contains(title.ToLower()) && (int)x.Area == enumArea)
+                     .OrderByDescending(x => x.CreatedOn).To<T>().ToListAsync();
+
+        }
+
+        public async Task<IEnumerable<T>> FilteredUsers<T>(string username)
+        {
+            var users = await this.userDb.AllAsNoTracking()
+                    .Where(x => x.UserName.ToLower().Contains(username.ToLower()))
+                    .OrderByDescending(x => x.CreatedOn).To<T>().ToListAsync();
+            return users;
+        }
+
         public async Task<IEnumerable<T>> GetAll<T>(int? take = null, int skip = 0)
         {
-            var query = this.db.All().OrderByDescending(x => x.CreatedOn).Skip(skip);
+            var query = this.db.AllAsNoTracking().OrderByDescending(x => x.CreatedOn).Skip(skip);
             if (take.HasValue)
             {
                 query.Take(take.Value);
             }
+
             return await query.To<T>().ToListAsync();
         }
 

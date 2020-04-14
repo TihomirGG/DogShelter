@@ -18,6 +18,9 @@
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Views\Posts\PostResult.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
     <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
   </ItemGroup>

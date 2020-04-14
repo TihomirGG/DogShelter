@@ -1,6 +1,5 @@
 ﻿@using DogShelter.Web.ViewModels.Posts
-@using cloudscribe.Pagination.Models
-@using cloudscribe.Web.Pagination
+
 
 @model PostWithPageCountViewModel
 <link rel="stylesheet" type="text/css" href="~/css/post.css">
@@ -8,46 +7,18 @@
 
 <div class="all-container">
     <div class="data-holder">
-        <div class="post-filter-1">
-            <input class="search form-control" type="text" placeholder="Search" aria-label="Search">
-            <select selected="All" class="form-control">
-                <option value="0">All</option>
-                <option value="1">Sofia</option>
-                <option value="2">Qmbol</option>
-                <option value="3">Shumen</option>
-                <option value="4">Haskovo</option>
-                <option value="5">Turgovishte</option>
-                <option value="6">Stara Zagora</option>
-                <option value="7">Smolqn</option>
-                <option value="8">Sliven</option>
-                <option value="9">Silistra</option>
-                <option value="10">Ruse</option>
-                <option value="11">Razgrad</option>
-                <option value="12">Plovdiv</option>
-                <option value="13">Pleven</option>
-                <option value="14">Pernik</option>
-                <option value="15">Pazardjik</option>
-                <option value="16">Montana</option>
-                <option value="17">Lovech</option>
-                <option value="18">Kustendil</option>
-                <option value="19">Kurdjali</option>
-                <option value="20">Dobrich</option>
-                <option value="21">Gabrovo</option>
-                <option value="22">Vraca</option>
-                <option value="23">Vidin</option>
-                <option value="24">Veliko Turnovo</option>
-                <option value="25">Varna</option>
-                <option value="26">Burgas</option>
-                <option value="27">Blagoevgrad</option>
-            </select>
-        </div>
-        <div class="post-filter-2">
-            <select class="form-control">
-                <option value="1" selected>Post</option>
-                <option value="2">User</option>
-            </select>
-            <button class="search-button btn btn-primary" asp-controller="Posts" asp-action="Find">Search</button>
-        </div>
+        <form asp-controller="Posts" asp-action="Find" method="get">
+            <div class="post-filter-1">
+                <input class="search form-control" name="Search" type="text" placeholder="Search" aria-label="Search">
+                <select class="form-control" asp-for="Area" asp-items="@Model.Areas">
+                </select>
+            </div>
+            <div class="post-filter-2">
+                <select class="form-control" asp-for="UserOrPost" asp-items="@Model.UsersOrPosts">
+                </select>
+                <button class="search-button btn btn-primary" type="submit">Search</button>
+            </div>
+        </form>
         @foreach (var input in Model.Posts)
         {
             <div class="card mb-3" style="max-width: 540px;">

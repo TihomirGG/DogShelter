@@ -75,6 +75,7 @@
             services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<IImageService, ImageService>();
             services.AddTransient<IPostService, PostService>();
+            services.AddTransient<IAreaService, AreaService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
