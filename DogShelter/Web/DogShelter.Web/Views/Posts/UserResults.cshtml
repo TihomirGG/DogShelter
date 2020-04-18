@@ -1,6 +1,6 @@
 ﻿@using DogShelter.Web.ViewModels.Posts
 @model IEnumerable<UserResultViewModel>
-<link rel="stylesheet" type="text/css" href="~/css/all-post.css">
+<link rel="stylesheet" type="text/css" href="~/css/post-results.css">
 @if (Model.Count() != 0)
 {
     <div id="post-container">
@@ -15,10 +15,10 @@
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5><a class="card-title text-dark" asp-area="" asp-controller="Users" asp-action="Detail" asp-route-id="@input.Id">@input.Username</a></h5>
+                                <h5><a class="card-title text-light" asp-area="" asp-controller="Users" asp-action="Detail" asp-route-id="@input.Id">@input.Username</a></h5>
                                 @*<h5 href="/Posts/Detail?id=@input.Id" class="card-title">@input.Title</h5>*@
-                                <p class="card-text">Posts: (@input.PostsCount)</p>
-                                <p class="card-text"><small class="text-muted">@input.CreatedOn</small></p>
+                                <p class="card-text text-light">Posts: (@input.PostsCount)</p>
+                                <p class="card-text"><small class="text-light">@input.CreatedOn</small></p>
                             </div>
                         </div>
                     </div>

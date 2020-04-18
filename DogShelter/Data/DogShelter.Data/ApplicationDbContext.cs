@@ -38,6 +38,8 @@
 
         public DbSet<Vote> Votes { get; set; }
 
+        public DbSet<Tracked> Tracked { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

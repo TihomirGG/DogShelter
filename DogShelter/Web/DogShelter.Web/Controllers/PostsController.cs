@@ -128,5 +128,11 @@
             var users = await this.postService.FilteredUsers<UserResultViewModel>(input.Search);
             return this.View("UserResults", users);
         }
+
+        [Authorize]
+        public IActionResult Tracking()
+        {
+            return this.View();
+        }
     }
 }
